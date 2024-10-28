@@ -8,7 +8,11 @@ function fileExists(filename) {
 
 function validNumber(value) { // value can be string or numeric
  // returns a boolean 
+ const number = parseFloat(value);
+ const isValidFormat = /^-?\d+(\.\d+)?$/.test(value);
+ return isValidFormat && !isNaN(number) && isFinite(number);
 }
+
 
 
 function dataDimensions(dataframe) {
