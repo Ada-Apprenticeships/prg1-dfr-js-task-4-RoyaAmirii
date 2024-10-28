@@ -2,6 +2,7 @@ const fs = require('fs');
 
 function fileExists(filename) {
   // returns true or false
+  return fs.existsSync(filename);
 }
 
 function validNumber(value) { // value can be string or numeric
@@ -68,13 +69,29 @@ console.log(calculateMean(dataset1)); // Should output 8.2
 console.log(calculateMean(dataset2)); // Should output 1.9
 console.log(calculateMean(dataset3)); // Should output false
 
-function findTotal(dataset) {
-  // returns float or false
+function findTotal(dataset) {// returns float or false
+  function findTotal(dataset) {
+    if (!Array.isArray(dataset) || dataset.length === 0) return false;
+
+    const validNumbers = dataset.filter(value => validNumber (value)).map(Number);
+    if (validNumbers.length === 0) return false;
+    return validNumbers.reduce(( acc, num) => acc + num, 0);
+  } 
 }
 
-function convertToFloat(dataframe, col) { // dataframe, integer
-  // returns an integer, which is the number that were converted to floats.
+function convertToFloat(dataframe, col) { // dataframe, integer // returns an integer, which is the number that were converted to floats.
+  if (!Array.isArray(dataframe) || dataframe.length === 0 || col< 0) return 0;
+
+  let count = 0 
+  dataframe.forEach(row => {
+    if (Array.isArray(row) && validNumber(row[col]) && typeof row [col] !== 'number')
+      row[col] = parseFloat(row[col]);
+      count++;
+  }
+  )
+return count
 }
+
 
 function flatten(dataframe) {
   // returns a dataset (a flattened dataframe)
@@ -96,6 +113,7 @@ module.exports = {
   fileExists, validNumber, dataDimensions, calculateMean, findTotal, convertToFloat, flatten, 
   loadCSV, calculateMedian, createSlice,
 }; 
+
 
 module.exports = {
   fileExists, validNumber, dataDimensions, calculateMean, findTotal, convertToFloat, flatten, 
