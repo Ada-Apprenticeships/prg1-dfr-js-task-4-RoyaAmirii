@@ -8,11 +8,21 @@ function fileExists(filename) {
 
 function validNumber(value) { // value can be string or numeric
  // returns a boolean 
- const number = parseFloat(value);
- const isValidFormat = /^-?\d+(\.\d+)?$/.test(value);
- return isValidFormat && !isNaN(number) && isFinite(number);
+ const number = parseFloat(value); //parseFloat is used to check if value can be converted into a finite number
+ const isValidFormat = /^-?\d+(\.\d+)?$/.test(value); //Regex Check: '^-?\d+(\.\d+)?$' ensures the input has an optional - sign, followed by digits, with an optional decimal portion.
+ return isValidFormat && !isNaN(number) && isFinite(number); //We return true only if isValidFormat is true and the parsed number is finite.
 }
-
+console.log(validNumber('0.0')); // true
+console.log(validNumber('0.1')); // true
+console.log(validNumber('-1.12')); // true
+console.log(validNumber('-5')); // true
+console.log(validNumber('5')); // true
+console.log(validNumber(1.3)); // true
+console.log(validNumber(1)); // true
+console.log(validNumber('5.')); // false
+console.log(validNumber('+5')); // false
+console.log(validNumber('.')); // false
+console.log(validNumber('0.0.1')); // false
 
 
 function dataDimensions(dataframe) {
