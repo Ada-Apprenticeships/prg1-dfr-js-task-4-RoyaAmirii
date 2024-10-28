@@ -25,10 +25,30 @@ console.log(validNumber('.')); // false
 console.log(validNumber('0.0.1')); // false
 
 
-function dataDimensions(dataframe) {
-  // returns a list [rows (int), cols (int)]
+function dataDimensions(dataframe) {// returns a list [rows (int), cols (int)]
+  if (!Array.isArray(dataframe)|| dataframe.length === 0){
+    return [-1,-1];
+  } 
+  if (!Array.isArray(dataframe[0])){
+    return [dataframe.length, -1];
+  }
+  const rows = dataframe.length;
+  const cols = dataframe[0].length;
+  return [rows,cols]
 }
+const df1 = [
+  ['tcp', 1, 2,3],
+  ['icmp',4, 5, 6],
+  ['tcp', 7, 8, 9]
+];
+const ds1 = [1.1, 1.2, 0, 0,1.1]
+const ds2 = ['AAA', 'BBB', 'CCC'];
+const ds3 = undefined;
 
+console.log(dataDimensions(df1)); // [3, 4]
+console.log(dataDimensions(ds1)); // [5, -1]
+console.log(dataDimensions(ds2)); // [3, -1]
+console.log(dataDimensions(ds3)); // [-1, -1]
 
 function calculateMean(dataset) {
   // returns a float or false
